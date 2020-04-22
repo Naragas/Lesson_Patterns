@@ -4,6 +4,7 @@ public sealed class MoveCharacter2D : MonoBehaviour
 {
     private Rigidbody2D _controllerRigidbody;
     private AnimatorMove _animatorMove;
+    private InputKeys _inputKeys = new InputKeys();
 
     [SerializeField] private float _acceleration = 0.0f;
     [SerializeField] private float _maxSpeed = 0.0f;
@@ -25,12 +26,12 @@ public sealed class MoveCharacter2D : MonoBehaviour
     {
         var moveHorizontal = 0.0f;
 
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(_inputKeys._moveRight))
         {
             moveHorizontal = 1.0f;
             Flip(-1.0f);
         }
-        else if (Input.GetKey(KeyCode.A))
+        else if (Input.GetKey(_inputKeys._moveLeft))
         {
             moveHorizontal = -1.0f;
             Flip(1.0f);
@@ -38,7 +39,7 @@ public sealed class MoveCharacter2D : MonoBehaviour
 
         _movementInput.Set(moveHorizontal, 0.0f);
 
-        if (!_isJumping && Input.GetKeyDown(KeyCode.Space))
+        if (!_isJumping && Input.GetKeyDown(_inputKeys._jump))
         {
             _jumpInput = true;
         }
